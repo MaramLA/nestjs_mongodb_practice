@@ -5,6 +5,12 @@ export class User {
   @Prop({ unique: true, required: true })
   username: string;
 
+  @Prop({ required: true })
+  password: string;
+
+  @Prop({ unique: true, required: true })
+  email: string;
+
   @Prop({ required: false })
   avatarUrl?: string;
 }

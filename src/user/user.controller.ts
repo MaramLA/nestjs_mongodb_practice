@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   Param,
@@ -51,9 +52,21 @@ export class UserController {
       id,
       updateUserDto,
     );
-    if(!updatedUser){
-        throw new HttpException("User not found", 404)
+    if (!updatedUser) {
+      throw new HttpException('User not found', 404);
     }
     return updatedUser;
+  }
+
+  @Delete(':id')
+  async deleteUser(@Param('id') id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new HttpException('Invalid id', 400);
+    }
+    const deletedUser = await this.userService.deleteUserById(id);
+    if (!deletedUser) {
+      throw new HttpException('User not found', 404);
+    }
+    return 'user deleted successfully';
   }
 }

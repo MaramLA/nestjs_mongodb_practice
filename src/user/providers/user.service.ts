@@ -33,7 +33,7 @@ export class UserService {
   }
 
   public getUsers() {
-    return this.userModel.find();
+    return this.userModel.find().populate('settings');
   }
 
   public async getUserById(id: string) {
